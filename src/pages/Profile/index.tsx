@@ -54,8 +54,9 @@ const Profile: React.FC = () => {
         cancelButtonTitle: 'Cancelar',
         takePhotoButtonTitle: 'Usar Câmera',
         chooseFromLibraryButtonTitle: 'Selecionar da galeria',
+        customButtons: [{ name: 'remove', title: 'Remover Avatar' }],
       },
-      (response) => {
+      async (response) => {
         if (response.didCancel) {
           return;
         }
@@ -65,15 +66,22 @@ const Profile: React.FC = () => {
           return;
         }
 
+        if (response.customButton) {
+          api.delete('/users/avatar/delete').then((apiResponse) => {
+            updateUser(apiResponse.data);
+          });
+          return;
+        }
+
         const data = new FormData();
 
         data.append('avatar', {
           type: 'image/jpeg',
-          name: `${user.id}.jpg`,
+          name: `${user.id}.jpeg`,
           uri: response.uri,
         });
 
-        api.patch('/users/avatar', data).then((apiResponse) => {
+        api.patch('users/avatar', data).then((apiResponse) => {
           updateUser(apiResponse.data);
         });
       },

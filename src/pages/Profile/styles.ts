@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { Platform } from 'react-native';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export const Wrapper = styled.SafeAreaView`
   flex: 1;
@@ -16,7 +15,7 @@ export const Container = styled.KeyboardAvoidingView.attrs({
 `;
 
 export const BackButton = styled.TouchableOpacity`
-  margin-top: 40px;
+  margin-top: 140px;
 `;
 
 export const Title = styled.Text`
